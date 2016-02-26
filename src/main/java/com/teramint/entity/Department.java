@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import com.teramint.cayenne.CayenneService;
 import com.teramint.cayenne.entity.LevelInfo;
 
+/**
+ * 
+ * @author mramos
+ *
+ */
 @Entity(name="Department")
 public class Department {
 	

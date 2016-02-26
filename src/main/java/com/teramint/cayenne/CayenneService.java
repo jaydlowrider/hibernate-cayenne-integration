@@ -7,6 +7,11 @@ import org.apache.cayenne.configuration.server.ServerRuntimeBuilder;
 
 import com.teramint.cayenne.entity.LevelInfo;
 
+/**
+ * 
+ * @author mramos
+ *
+ */
 
 public class CayenneService {
 	

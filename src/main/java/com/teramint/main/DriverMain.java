@@ -8,6 +8,11 @@ import com.teramint.entity.Department;
 import com.teramint.service.DepartmentDao;
 import com.teramint.service.EmployeeDao;
 
+/**
+ * 
+ * @author mramos
+ *
+ */
 public class DriverMain {
 	
 	public static void main(String[] args){

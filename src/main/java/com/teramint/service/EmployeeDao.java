@@ -4,7 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.teramint.entity.Employee;
-
+/**
+ * 
+ * @author mramos
+ *
+ */
 public class EmployeeDao {
 		
 	private SessionFactory sessionFactory;

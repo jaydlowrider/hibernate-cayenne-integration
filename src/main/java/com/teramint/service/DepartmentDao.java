@@ -5,7 +5,11 @@ import org.hibernate.SessionFactory;
 
 import com.teramint.entity.Department;
 
-
+/**
+ * 
+ * @author mramos
+ *
+ */
 public class DepartmentDao {
 	
 	private SessionFactory sessionFactory;
