@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/7/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/7/modelMap http://cayenne.apache.org/schema/7/modelMap.xsd"
+	 project-version="7">
+	<property name="defaultLockType" value="optimistic"/>
+	<property name="defaultPackage" value="com.teramint.cayenne.entity"/>
+	<db-entity name="Department">
+		<db-attribute name="deptName" type="VARCHAR" length="200"/>
+		<db-attribute name="groupDeptName" type="VARCHAR" length="100"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="levelId" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="Employee">
+		<db-attribute name="address" type="VARCHAR" length="200"/>
+		<db-attribute name="deptId" type="INTEGER"/>
+		<db-attribute name="driverLicenseId" type="VARCHAR" length="50"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="name" type="VARCHAR" length="100"/>
+		<db-attribute name="taxid" type="VARCHAR" length="100"/>
+	</db-entity>
+	<db-entity name="LevelInfo">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="levelName" type="VARCHAR" length="1000"/>
+	</db-entity>
+	<obj-entity name="Department" className="com.teramint.cayenne.entity.Department" lock-type="optimistic" dbEntityName="Department">
+		<obj-attribute name="deptName" type="java.lang.String" db-attribute-path="deptName"/>
+		<obj-attribute name="groupDeptName" type="java.lang.String" db-attribute-path="groupDeptName"/>
+		<obj-attribute name="id" type="int" lock="true" db-attribute-path="id"/>
+		<obj-attribute name="levelId" type="java.lang.Integer" db-attribute-path="levelId"/>
+	</obj-entity>
+	<obj-entity name="Employee" className="com.teramint.cayenne.entity.Employee" lock-type="optimistic" dbEntityName="Employee">
+		<obj-attribute name="address" type="java.lang.String" db-attribute-path="address"/>
+		<obj-attribute name="driverLicenseId" type="java.lang.String" db-attribute-path="driverLicenseId"/>
+		<obj-attribute name="id" type="int" lock="true" db-attribute-path="id"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="taxid" type="java.lang.String" db-attribute-path="taxid"/>
+	</obj-entity>
+	<obj-entity name="LevelInfo" className="com.teramint.cayenne.entity.LevelInfo" lock-type="optimistic" dbEntityName="LevelInfo">
+		<obj-attribute name="id" type="java.lang.Integer" lock="true" db-attribute-path="id"/>
+		<obj-attribute name="levelName" type="java.lang.String" db-attribute-path="levelName"/>
+	</obj-entity>
+	<db-relationship name="empDepartment" source="Department" target="Employee" toMany="true">
+		<db-attribute-pair source="id" target="deptId"/>
+	</db-relationship>
+	<db-relationship name="department" source="Employee" target="Department" toMany="false">
+		<db-attribute-pair source="deptId" target="id"/>
+	</db-relationship>
+	<obj-relationship name="empDepartment" source="Department" target="Employee" deleteRule="Deny" db-relationship-path="empDepartment"/>
+	<obj-relationship name="department" source="Employee" target="Department" deleteRule="Nullify" db-relationship-path="department"/>
+</data-map>

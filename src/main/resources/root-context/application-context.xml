@@ -1,0 +1,62 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+	http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
+	<context:annotation-config />
+	<context:property-placeholder location="classpath*:hibernatecayenne.properties"
+		order="1" local-override="true" ignore-unresolvable="true" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.amphorainc.entity.Department</value>
+				<value>com.amphorainc.entity.Employee</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL57InnoDBDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.default_schema"></prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${rdbms.jdbc.url}" />
+		<property name="username" value="${rdbms.jdbc.user}" />
+		<property name="password" value="${rdbms.jdbc.pwd}" />
+	</bean>
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="cayenneService" class="com.teramint.cayenne.CayenneService"
+		init-method="init" factory-method="instance"></bean>
+
+	<bean id="deptService" class="com.teramint.service.DepartmentDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="empService" class="com.teramint.service.EmployeeDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+</beans>
